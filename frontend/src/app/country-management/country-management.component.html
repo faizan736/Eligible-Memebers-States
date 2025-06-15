@@ -1,0 +1,40 @@
+<div class="container">
+  <h3>Manage Eligible Member states</h3>
+
+  <!-- Header and search -->
+  <div class="header">
+    <strong>Manage Eligible Member States</strong>
+    <input type="text" [(ngModel)]="searchTerm" (input)="searchCountries()" placeholder="Search by Country" />
+    <button (click)="updateList()">Update country list</button>
+  </div>
+
+  <!-- Table header -->
+  <div class="table">
+    <div class="row header">
+      <div *ngIf="showCheckboxes" class="cell">Select</div>
+      <div class="cell">Country Name</div>
+    </div>
+
+    <!-- Country rows -->
+    <div class="row" *ngFor="let country of filteredCountries">
+      <div *ngIf="showCheckboxes" class="cell">
+        <input
+          type="checkbox"
+          [(ngModel)]="country.isEligible"
+          (change)="onCheckboxToggle(country)"
+        />
+      </div>
+      <div class="cell">{{ country.name }}</div>
+    </div>
+  </div>
+
+  <!-- Selected Countries List -->
+  <div *ngIf="showCheckboxes" class="selected">
+    <p><strong>Selected Countries:</strong></p>
+    <ul>
+      <ng-container *ngFor="let country of countries">
+        <li *ngIf="country.isEligible">{{ country.name }}</li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
